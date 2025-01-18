@@ -7,6 +7,9 @@ const todoListElement = document.getElementById("todoListElement");
 const refreshButton = document.getElementById("refreshButton");
 const addItemButton = document.getElementById("addItemButton");
 const itemInputField = document.getElementById("itemInputField");
+const itemIdInputField = document.getElementById("itemIdUpdateField");
+const itemPriorityUpdateField = document.getElementById("itemPriorityUpdateField");
+const updateItemButton = document.getElementById("updateItemButton");
 
 // Event Listeners
 refreshButton.addEventListener("click", (event) => {
@@ -15,6 +18,11 @@ refreshButton.addEventListener("click", (event) => {
 
 addItemButton.addEventListener("click", (event) => {
     addItemToTodoList();
+    refreshTodoList();
+});
+
+updateItemButton.addEventListener("click", (event) => {
+    updateItem();
     refreshTodoList();
 })
 
@@ -50,7 +58,6 @@ async function refreshTodoList(url = 'http://localhost:3000/read') {
 }
 
 async function addItemToTodoList(url = 'http://localhost:3000/create') {
-    console.log('Add button clicked');
     const itemInput = itemInputField.value;
     const response = await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -73,7 +80,9 @@ async function addItemToTodoList(url = 'http://localhost:3000/create') {
 
 }
 
-//}
+async function updateItem(url= 'http://localhost:3000/update') {
+    console.log('update button clicked')
+}
 
 window.onload = async () => {
     let data = await refreshTodoList();
