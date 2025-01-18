@@ -1,8 +1,11 @@
 const db = require('./db');
 
 function insertItem(todo) {
-    // const [item, category, user, priority] = todo;
-    const [item, category, user, priority]= process.argv.slice(2);
+    const item = todo.item;
+    const category = todo.category;
+    const user = todo.user;
+    const priority = todo.priority;
+    //const [item, category, user, priority]= process.argv.slice(2);
 
     db.run(`INSERT INTO todolist (item, category, user, priority) VALUES (?, ?, ?, ?)`,
         [item, category, user, priority],
@@ -15,4 +18,5 @@ function insertItem(todo) {
     );
 }
 
-insertItem();
+module.exports = function (insertItems) {
+}

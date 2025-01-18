@@ -1,6 +1,6 @@
 const fs = require('fs');
 const sqlite3 = require('sqlite3').verbose();
-const filepath = './todo.db';
+const filepath = 'D:\\Code\\all-stack\\to-do-app\\src\\db\\todo.db';
 
 function createDbConnection() {
     if (fs.existsSync(filepath)) {
@@ -14,9 +14,9 @@ function createDbConnection() {
             }
             
             createTable(db);
+            console.log("Connection with new SQLite has been established");
 
         });
-        console.log("Connection with SQLite has been established");
         return db;
     }
 }
