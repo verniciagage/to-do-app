@@ -7,8 +7,8 @@ const todoListElement = document.getElementById("todoListElement");
 const refreshButton = document.getElementById("refreshButton");
 const addItemButton = document.getElementById("addItemButton");
 const itemInputField = document.getElementById("itemInputField");
-const itemIdInputField = document.getElementById("itemIdUpdateField");
-const itemPriorityUpdateField = document.getElementById("itemPriorityUpdateField");
+const itemIdInputField = document.getElementById("itemIdInputField");
+const itemPriorityUpdateField = document.getElementById("itemPriorityInputField");
 const updateItemButton = document.getElementById("updateItemButton");
 
 // Event Listeners
@@ -44,13 +44,14 @@ async function refreshTodoList(url = 'http://localhost:3000/read') {
     })
         .then((response) => response.json())
         .then((response) => {
-            console.log(response); // JSON data parsed by `data.json()` call
+            // console.log(response); // JSON data parsed by `data.json()` call
             todoListElement.textContent = '';
             for (let element of response) {
-                console.log(element)
+                // console.log(element)
                 const todoList = JSON.stringify(element);
                 const list = document.createElement("li");
                 list.textContent = todoList;
+                list.id = element["ID"];
                 todoListElement.appendChild(list);
             }
 
@@ -81,7 +82,30 @@ async function addItemToTodoList(url = 'http://localhost:3000/create') {
 }
 
 async function updateItem(url= 'http://localhost:3000/update') {
-    console.log('update button clicked')
+    const idInput = itemIdInputField.value;
+    const itemPriorityUpdateValue = itemPriorityUpdateField.value;
+    const oldTodo = JSON.parse(document.getElementById((idInput).toString()).textContent);
+    const dbItem = oldTodo["item"];
+    const dbUser = oldTodo["user"];
+
+    const response = await fetch(url, {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url,
+
+        body: JSON.stringify({ id: idInput, item: dbItem, user: dbUser, priority: itemPriorityUpdateValue })
+        
+    })
+
+    refreshTodoList();
 }
 
 window.onload = async () => {
