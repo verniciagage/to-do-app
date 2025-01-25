@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+</head>
+<body>
+    <h1>Welcome to Flo's To-Do App</h1>
+    <div>
+        <label for="item">Enter a new item:</label>
+        <input type="text" name="item" id="itemInputField">
+        <button id="addItemButton">Add item</button>
+    </div>
+    <div>
+        <label for="updatePriority">Enter the item id</label>
+        <input type="text" name="itemId" id="itemIdInputField">
+        <label for="updatePriority">Enter the new priority level</label>
+        <input type="text" name="itemPriority" id="itemPriorityInputField">
+        <button id="updateItemButton">Update item</button>
+        <button id="deleteItemButton">Delete item</button>
+    </div>
+    <button id="refreshButton">Refresh List</button>
+    <h2 id="toDoHeader">To-Do List</h2>
+    <span id="todoListElement">
+
+    </span>
+    <script src="../app/index.js"></script>
+</body>
+</html>
